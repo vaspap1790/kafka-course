@@ -13,22 +13,24 @@ public class ProducerDemo {
 
         String bootstrapServers = "127.0.0.1:9092";
 
-        //Create Producer Properties
+        // Create Producer Properties
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
-        //Create the Producer
+        // Create the Producer
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
-        //Create a Producer Record
+        // Create a Producer Record
         ProducerRecord<String, String> record = new ProducerRecord<>("first_topic", "Hello World!!!");
 
-        //Send Data - asynchronous
+        // Send Data - asynchronous
         producer.send(record);
 
+        // flush data to handle asynchronous
         producer.flush();
+        // flush and close producer
         producer.close();
 
     }
